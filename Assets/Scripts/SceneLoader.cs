@@ -6,7 +6,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class SceneLoader : MonoBehaviour
 {
-	int thisIndex; //index of current scene
+	int thisIndex = 0; //index of current scene
 	public void QuitGame()
 	{
 		Application.Quit();
