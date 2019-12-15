@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
     private float speed = 10f;
     public int lives = 3;
     public float size = 0f;
+    public bool lockDirectionLeft;
 
 
     // Start is called before the first frame update
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour {
         velocity += turnVelocity;
         // we then need to recalculate the new bearing after applying turn velocity
         bearing = GetBearing(velocity);
+        ApplyBearingRestrictions();
 
         // set the new velocity and rotation based on the new bearing and speed
         rb2d.velocity = GetVelocity(bearing, speed);
@@ -49,6 +51,22 @@ public class PlayerController : MonoBehaviour {
     // returns bearing in radians based on velocity
     private static float GetBearing(Vector2 velocity) {
         return Mathf.Atan2(velocity.y, velocity.x);
+    }
+    // returns bearing in radians after adjusting to direction locks
+    private void ApplyBearingRestrictions() {
+        NormaliseBearing();
+        if (lockDirectionLeft) {
+            bearing = Mathf.Clamp(bearing, -(Mathf.PI / 2 * 0.9f), (Mathf.PI / 2 * 0.9f));
+        }
+    }
+    // sets bearing between -Pi and Pi
+    private void NormaliseBearing() {
+        while (bearing <= -Mathf.PI) {
+            bearing += Mathf.PI * 2;
+        }
+        while (bearing > Mathf.PI) {
+            bearing -= Mathf.PI * 2;
+        }
     }
 
     // returns heading based on the players horizontal axis
@@ -67,7 +85,7 @@ public class PlayerController : MonoBehaviour {
 
     //OnTriggerEnter2D is called whenever this object overlaps with a trigger collider.
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.tag == "Respawn") {
+        if (collision.gameObject.tag == "SpaceObject") {
             var scale = collision.gameObject.transform.localScale;
             if (areaDiff(collision.gameObject, gameObject) < 0.5f) {
                 //similar size
