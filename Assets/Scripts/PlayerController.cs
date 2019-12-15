@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour {
     // private static float GRAVITY = 9.8f;
 
     private Rigidbody2D rb2d;
+    private ObjectGeneration objectGeneration;
+
     // private Animator animator;
     private float moveHorizontal = 0f;
     private bool dying = false;
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         rb2d = GetComponent<Rigidbody2D>();
+        objectGeneration = GameObject.Find("Boundary").GetComponent<ObjectGeneration>();
         //animator = GetComponent<Animator>();
     }
 
@@ -89,17 +92,18 @@ public class PlayerController : MonoBehaviour {
             float mySize = GetArea(gameObject);
             float objectSize = GetArea(collision.gameObject);
             float sizeDifference = mySize - objectSize;
-            Debug.Log("My Size: " + mySize + " obj Size: " + objectSize + " size Difference: " + sizeDifference);
             // player is bigger
             if (sizeDifference > 0) {
                 AudioController.PlaySound("Eat");
+                AudioController.IncrementPitch("Movement");
+                objectGeneration.maxObjects++;
                 Destroy(collision.gameObject);
                 transform.localScale += new Vector3(1, 1, 0) * 0.1f;
                 size += 1;
                 GameObject.Find("Boundary").transform.localScale += new Vector3(5, 4, 0) * 2;
                 speed += 2.5f;
                 Camera.main.orthographicSize += 1;
-                GameObject.Find("Boundary").GetComponent<ObjectGeneration>().SpawnItem();
+                objectGeneration.SpawnItem();
             // player is smaller
             } else if (sizeDifference < -(mySize * 0.5f)) {
                 //bigger

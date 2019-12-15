@@ -27,8 +27,8 @@ public class UI : MonoBehaviour
 	void Update()
 	{
 		lives = playerController.lives;
-		size = Mathf.Clamp(playerController.size, 0, 500);
-		if (size == 500)
+		size = Mathf.Clamp(playerController.size, 0, 100);
+		if (size == 100)
 		{
 			PlayerPrefs.SetFloat("seconds", Mathf.Round((Time.time - timer) * 10) / 10f);
 			SceneLoader.Victory();

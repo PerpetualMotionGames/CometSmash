@@ -30,7 +30,7 @@ public class ObjectGeneration : MonoBehaviour
         if (spaceObjects.Length < maxObjects) {
             Bounds spawnBoundary = GetSpawnBounds();
             int itemsInSpawn = CountItemsInBounds(spaceObjects, spawnBoundary);
-            int maxItemsInSpawn = (int)(maxObjects / 5);
+            int maxItemsInSpawn = (int)(maxObjects / 6); // around 16 % should leave room to always spawn and leave less gaps
             while (itemsInSpawn < maxItemsInSpawn) {
                 SpawnItem();
                 itemsInSpawn++;

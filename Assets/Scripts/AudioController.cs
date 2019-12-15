@@ -59,4 +59,13 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    public static void IncrementPitch(string clip) {
+        AudioSource audioSource = GameObject.Find(clip).GetComponent<AudioSource>();
+        if (audioSource == null) {
+            Debug.Log("AudioController.IncrementPitch could not find a clip named: " + clip);
+            return;
+        }
+        audioSource.pitch += 0.1f;
+    }
+
 }
