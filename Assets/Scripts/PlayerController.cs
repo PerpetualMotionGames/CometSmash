@@ -86,15 +86,13 @@ public class PlayerController : MonoBehaviour {
     //OnTriggerEnter2D is called whenever this object overlaps with a trigger collider.
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "SpaceObject") {
-            var scale = collision.gameObject.transform.localScale;
-            if (areaDiff(collision.gameObject, gameObject) < 0.5f) {
-                //similar size
-                // Debug.Log("bounce");
-            } else if (roughArea(gameObject) < roughArea(collision.gameObject)) {
-                //bigger
-                lives -= 1;
-            } else {
-                //player is bigger
+            float mySize = GetArea(gameObject);
+            float objectSize = GetArea(collision.gameObject);
+            float sizeDifference = mySize - objectSize;
+            Debug.Log("My Size: " + mySize + " obj Size: " + objectSize + " size Difference: " + sizeDifference);
+            // player is bigger
+            if (sizeDifference > 0) {
+                AudioController.PlaySound("Eat");
                 Destroy(collision.gameObject);
                 transform.localScale += new Vector3(1, 1, 0) * 0.1f;
                 size += 1;
@@ -102,15 +100,22 @@ public class PlayerController : MonoBehaviour {
                 speed += 2.5f;
                 Camera.main.orthographicSize += 1;
                 GameObject.Find("Boundary").GetComponent<ObjectGeneration>().SpawnItem();
+            // player is smaller
+            } else if (sizeDifference < -(mySize * 0.5f)) {
+                //bigger
+                AudioController.PlaySound("Damage");
+                lives -= 1;
+            // size is close enough it won't hurt
+            } else {
+                //AudioController.PlaySound("Damage");
             }
 
         }
     }
-    private float roughArea(GameObject obj) {
-        return obj.transform.localScale.x * obj.transform.localScale.y;
-    }
-    private float areaDiff(GameObject a, GameObject b) {
-        return Mathf.Abs(roughArea(a) - roughArea(b));
+    private float GetArea(GameObject obj) {
+        // using circle colliders
+        float radius = (obj.transform.localScale.x + obj.transform.localScale.y) / 4;
+        return Mathf.PI*radius*radius;
     }
     public void Die() {
         if (!dying) {

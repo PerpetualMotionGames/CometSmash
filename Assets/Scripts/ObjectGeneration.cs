@@ -35,7 +35,6 @@ public class ObjectGeneration : MonoBehaviour
                 SpawnItem();
                 itemsInSpawn++;
             }
-            Debug.Log("itemsInSpawn: " + itemsInSpawn + " totalItems: " + spaceObjects.Length);
         }
     }
 
@@ -98,9 +97,9 @@ public class ObjectGeneration : MonoBehaviour
     private Bounds GetItemScaleBounds() {
         Bounds scaleBounds = new Bounds();
         scaleBounds.minX = player.transform.localScale.x / 2;
-        scaleBounds.maxX = player.transform.localScale.x * 2;
+        scaleBounds.maxX = player.transform.localScale.x * 3;
         scaleBounds.minY = player.transform.localScale.y / 2;
-        scaleBounds.maxY = player.transform.localScale.y * 2;
+        scaleBounds.maxY = player.transform.localScale.y * 3;
         return scaleBounds;
     }
 
@@ -110,11 +109,11 @@ public class ObjectGeneration : MonoBehaviour
         Vector3 scale = GetRandomScale(GetItemScaleBounds());
 
         //randomly spawn in an item
-        int choice = Random.Range(0, spaceSprites.Length);
+        int choice = Random.Range(0, spaceSprites.Length - 1);
 		GameObject newSpaceObject = Instantiate(spaceItem, position, Quaternion.identity);
 		newSpaceObject.GetComponent<SpriteRenderer>().sprite = spaceSprites[choice];
 		newSpaceObject.transform.localScale = scale;
-		if (choice > 32)
+		if (choice > 31)
 		{
 			//its a planet rather than an asteroid
 			newSpaceObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 200);
@@ -128,11 +127,9 @@ public class ObjectGeneration : MonoBehaviour
 		Vector3 objectPos = collision.gameObject.transform.position;
         Bounds gameBounds = GetGameBounds();
         float gameHeight = gameBounds.maxY - gameBounds.minY;
-        Debug.Log("ObjectTriggerExitStart, x,y: " + objectPos.x + "," + objectPos.y + " gameBounds minX,maxX: " + gameBounds.minX + "," + gameBounds.maxX);
         // if out of bounds in the X axis, kill the object
         if (objectPos.x < gameBounds.minX || objectPos.x > gameBounds.maxX) {
             Destroy(collision.gameObject);
-            Debug.Log("Object Killed");
             return;
         }
 
@@ -143,7 +140,6 @@ public class ObjectGeneration : MonoBehaviour
         while (objectPos.y > gameBounds.maxY) {
             objectPos.y -= gameHeight;
         }
-        Debug.Log("ObjectTriggerExitEnded, x,y: " + objectPos.x + "," + objectPos.y + " gameBounds minX,maxX: " + gameBounds.minX + "," + gameBounds.maxX);
         collision.gameObject.transform.position = objectPos;
 	}
 }
