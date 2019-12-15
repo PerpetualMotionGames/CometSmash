@@ -201,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 215005665}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 80, z: 1}
+  m_LocalScale: {x: 200, y: 160, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edfc15aca5af9742a840e3050036d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 632626069}
+  target: {fileID: 986573104}
   FollowX: 1
   FollowY: 1
   FollowZ: 0
@@ -425,11 +425,11 @@ GameObject:
   m_Component:
   - component: {fileID: 632626072}
   - component: {fileID: 632626071}
-  - component: {fileID: 632626073}
   - component: {fileID: 632626070}
   - component: {fileID: 632626075}
   - component: {fileID: 632626076}
   - component: {fileID: 632626074}
+  - component: {fileID: 632626073}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -457,6 +457,7 @@ TrailRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -480,7 +481,7 @@ TrailRenderer:
   m_Time: 0.5
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 1.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -608,8 +609,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &632626073
-BoxCollider2D:
+--- !u!58 &632626073
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -622,18 +623,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.79, y: 2}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.83
 --- !u!114 &632626074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lives: 3
   size: 0
+  lockDirectionLeft: 1
 --- !u!50 &632626075
 Rigidbody2D:
   serializedVersion: 4
@@ -942,8 +934,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetUp: 0
   offsetDown: 0
-  offsetLeft: 0
-  offsetRight: 0
+  offsetLeft: 60
+  offsetRight: -60
   lockX: 0
   lockY: 0
 --- !u!1 &1015973550

@@ -26,9 +26,11 @@ public class CameraController : MonoBehaviour {
         float playerX = player.transform.position.x;
         float x = transform.position.x;
         float playerY = player.transform.position.y;
-        float y = transform.position.y; 
-
-
+        float y = transform.position.y;
+        float offsetUp = height * (this.offsetUp / 100);
+        float offsetDown = height * (this.offsetDown / 100);
+        float offsetLeft = width * (this.offsetLeft / 100);
+        float offsetRight = width * (this.offsetRight / 100);
 
         /* the way the movement is handled, allows the camera to move only if you're passing the center of the screen, 
          / or are past the offset, this way the camera will not lock onto you and makes it smoother overall
