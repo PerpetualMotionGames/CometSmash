@@ -13,7 +13,6 @@ public class DynamicMenu : MonoBehaviour
 	public float cometSpeed = 100f;
 	public Text optionalGameOverText;
 	public Text optionalVictoryText;
-	playerTemp pt;
 	void Start()
 	{
 		screenHeight = Camera.main.orthographicSize * 2;

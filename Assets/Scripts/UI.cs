@@ -6,28 +6,28 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
 	// Start is called before the first frame update
-	int lives = 3;
-	float timer;
-	float size = 0;
+	private int lives = 3;
+	private float timer;
+    private float size = 0;
 	public Sprite[] livesStates;
 	public GameObject healthbar;
-	float screenHeight;
-	float screenWidth;
-	playerTemp pt;
+    private float screenHeight;
+    private float screenWidth;
+    private PlayerController playerController;
 	public Image bar; //keeps track of player size
 	void Start()
 	{
 		timer = Time.time;
 		screenHeight = Camera.main.orthographicSize * 2;
 		screenWidth = screenHeight / Screen.height * Screen.width;
-		pt = GameObject.Find("Player").GetComponent<playerTemp>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		lives = pt.lives;
-		size = Mathf.Clamp(pt.size, 0, 500);
+		lives = playerController.lives;
+		size = Mathf.Clamp(playerController.size, 0, 500);
 		if (size == 500)
 		{
 			PlayerPrefs.SetFloat("seconds", Mathf.Round((Time.time - timer) * 10) / 10f);
