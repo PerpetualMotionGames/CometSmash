@@ -13,6 +13,10 @@ public class SceneLoader : MonoBehaviour
 	}
 	public void LoadLevel(int index)
 	{
+		if (index == 1)
+		{
+			AudioController.ChangeVolume("Movement", PlayerPrefs.GetFloat("volume")*0.4f);
+		}
 		SceneManager.LoadScene(index);
 	}
 
@@ -37,6 +41,7 @@ public class SceneLoader : MonoBehaviour
 	public void LoadNextLevel()
 	{
 		// Debug.Log(thisIndex);
+		AudioController.ChangeVolume("Movement", PlayerPrefs.GetFloat("volume")*0.4f);
 		if(thisIndex < SceneManager.sceneCountInBuildSettings - 1)
 		{
 			LoadLevel(thisIndex + 1);

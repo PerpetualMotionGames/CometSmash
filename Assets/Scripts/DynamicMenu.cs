@@ -13,8 +13,16 @@ public class DynamicMenu : MonoBehaviour
 	public float cometSpeed = 100f;
 	public Text optionalGameOverText;
 	public Text optionalVictoryText;
+	public Slider volume;
+	public bool mainMenu = false;
 	void Start()
 	{
+		if (mainMenu)
+		{
+			volume.value = PlayerPrefs.GetFloat("volume", 1);
+			AudioController.ChangeVolume("Soundtrack", PlayerPrefs.GetFloat("volume"));
+		}
+		
 		screenHeight = Camera.main.orthographicSize * 2;
 		screenWidth = screenHeight / Screen.height * Screen.width;
 		lastTime = Time.time;
@@ -47,5 +55,11 @@ public class DynamicMenu : MonoBehaviour
 		GameObject com = Instantiate(comet, pos, Quaternion.identity);
 		Rigidbody2D rb = com.GetComponent<Rigidbody2D>();
 		rb.AddForce(new Vector2(Random.Range(5, 15), Random.Range(-5, -15))*cometSpeed);
+	}
+
+	public void ModifyVolume()
+	{
+		PlayerPrefs.SetFloat("volume", volume.value);
+		AudioController.ChangeVolume("Soundtrack", PlayerPrefs.GetFloat("volume"));
 	}
 }

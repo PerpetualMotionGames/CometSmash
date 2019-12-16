@@ -109,7 +109,7 @@ public class ObjectGeneration : MonoBehaviour
         Vector3 scale = GetRandomScale(GetItemScaleBounds());
 
         //randomly spawn in an item
-        int choice = Random.Range(0, spaceSprites.Length - 1);
+        int choice = Random.Range(0, spaceSprites.Length);
 		GameObject newSpaceObject = Instantiate(spaceItem, position, Quaternion.identity);
 		newSpaceObject.GetComponent<SpriteRenderer>().sprite = spaceSprites[choice];
 		newSpaceObject.transform.localScale = scale;

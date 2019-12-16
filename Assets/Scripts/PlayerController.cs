@@ -98,8 +98,8 @@ public class PlayerController : MonoBehaviour {
                 AudioController.IncrementPitch("Movement");
                 objectGeneration.maxObjects++;
                 Destroy(collision.gameObject);
-                transform.localScale += new Vector3(1, 1, 0) * 0.1f;
-                size += 1;
+                transform.localScale += new Vector3(1, 1, 0) * 0.2f;
+                size += 5;
                 GameObject.Find("Boundary").transform.localScale += new Vector3(5, 4, 0) * 2;
                 speed += 2.5f;
                 Camera.main.orthographicSize += 1;

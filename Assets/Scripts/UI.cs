@@ -27,10 +27,11 @@ public class UI : MonoBehaviour
 	void Update()
 	{
 		lives = playerController.lives;
-		size = Mathf.Clamp(playerController.size, 0, 100);
-		if (size == 100)
+		size = Mathf.Clamp(playerController.size, 0, 500);
+		if (size == 500)
 		{
 			PlayerPrefs.SetFloat("seconds", Mathf.Round((Time.time - timer) * 10) / 10f);
+			AudioController.ChangeVolume("Movement", 0);
 			SceneLoader.Victory();
 		}
 		UpdateUI();
@@ -46,6 +47,9 @@ public class UI : MonoBehaviour
 		{
 			Color trans = new Color(0, 0, 0, 0);
 			healthbar.GetComponent<Image>().color = trans;
+			PlayerPrefs.SetFloat("size", size / 5f);
+			AudioController.ChangeVolume("Movement", 0);
+			SceneLoader.GameOver();
 		}
 		bar.gameObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,Mathf.Lerp(bar.gameObject.GetComponent<RectTransform>().rect.width, size,Time.deltaTime*10));
 	}

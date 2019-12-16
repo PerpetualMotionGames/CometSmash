@@ -22,7 +22,7 @@ public class AudioController : MonoBehaviour
 
 	void Start()
     {
-		musicvol = PlayerPrefs.GetFloat("MusicVolume", 1);
+		musicvol = PlayerPrefs.GetFloat("volume", 1);
 		soundvol = PlayerPrefs.GetFloat("SoundVolume", 1);
         ChangeVolume("Soundtrack", musicvol);
 		DontDestroyOnLoad(gameObject);
